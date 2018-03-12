@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Posts</h1>
+<% if current_user %>
+<%= link_to 'Create New Post', new_post_path, :class => "btn btn-success white" %>
+<% end %>
+<hr>
+    <% @posts.each do |post| %>
+      <tr>
+        <h2><%= post.title %></h2>
+        
+        <td><%= post.body %></td>
+        <p><%= post.user.name %></p>
+        <%= link_to 'Show', post, :class => "btn btn-primary white" %>
+
+        <% if current_user %>
+            <% if post.user.id == current_user.id %>
+              <%= link_to 'Edit', edit_post_path(post), :class => "btn btn-warning white" %>
+              <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger white" %>
+            <% end %>
+        <% end %>
+
+      </tr>
+      <hr>
+    <% end %>
+  <!-- </tbody> -->
+<!-- </table> -->
+
+<br>

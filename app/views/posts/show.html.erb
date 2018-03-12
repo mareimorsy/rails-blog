@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @post.body %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @post.user.name %>
+</p>
+
+<h2>Comments</h2>
+<hr>
+
+<% @comments.each do |comment| %>
+
+<% if comment.user %>
+	<b> <%= comment.user.name %> </b>
+<% else %>
+	<b>Anonymous : </b>
+<% end %>
+<%= comment.comment %>
+
+
+<% if current_user %>
+	<% if comment.user %>
+
+		<% if comment.user.id == current_user.id %>
+
+		<td><%= link_to 'Edit', edit_comment_path(comment), :class => "btn btn-info white" %></td>
+		<td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger white" %></td>
+
+		<% end %>
+
+	<% end %>
+<% end %>
+
+<hr>
+
+
+<br>
+<% end %>
+
+<%= render 'comments/form', comment: @comment %>
+
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
